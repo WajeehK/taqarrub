@@ -14,10 +14,22 @@ Taqarrub brings together the parts of [Sadiq](https://play.google.com/store/apps
 
 Times and compass bearings are calculated. They are not a fatwa.
 
+## Also in this version
+
+- Nearby mosques from OpenStreetMap (Overpass), with distance and a link to Google Maps
+- Prayer and reminder notifications, with an honest note about PWA limits; scheduled triggers are used when the browser supports them
+- Mission and goals (stored only on your phone, no streaks)
+- Islamic reminders: morning and evening adhkar, Al-Kahf on Friday, Al-Mulk at night, Ayyam al-Beed
+- Hijri / Gregorian calendar with key Islamic dates
+- Share verses and duas as an image
+- Full Hisnul Muslim (267 duas, 132 chapters, each with a source)
+- Mushaf page mode, word-by-word audio, extra translations and tafsir, verse-range playback with highlight, juz / hizb / page navigation, and notes on bookmarks
+
 ## Skipped in this first version
 
-- Nearby mosques (would need a maps dataset)
-- Prayer and Tahajjud push notifications (left out to keep this pass small; the times themselves are shown, including Tahajjud)
+- A home-screen prayer widget (not available to a web app on Android)
+- A guaranteed always-on adhan when the app is fully closed (a browser limit; see Settings)
+- The 70+ reciter catalogue is whatever the Quran.com API returns, not a private library
 
 Audio, translations, tafsir and prayer times need a network connection. The app shell and the duas / 99 Names work offline after the first visit.
 

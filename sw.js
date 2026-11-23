@@ -1,9 +1,9 @@
-/* Taqarrub service worker (tq-v1).
+/* Taqarrub service worker (tq-v2).
    App shell: cache-first, refreshed per build. APIs stay on the network. */
-const SHELL = 'taqarrub-shell-v1';
+const SHELL = 'taqarrub-shell-v2';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
-  './style.css?v=1', './app.js?v=1',
+  './style.css?v=2', './app.js?v=2',
   './data/duas.json', './data/names.json',
   './icons/icon-192.png', './icons/icon-512.png',
   './icons/maskable-512.png', './icons/apple-touch-icon.png',
@@ -30,9 +30,24 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(req).then(cached => {
       if (cached) return cached;
-      return fetch(req).then(res => {
-        return res;
-      }).catch(() => caches.match('./index.html'));
+      return fetch(req).catch(() => caches.match('./index.html'));
     })
   );
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = (e.notification.data && e.notification.data.url) || './';
+  e.waitUntil((async () => {
+    const cs = await clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const c of cs) {
+      if (c.url.startsWith(self.registration.scope)) {
+        await c.focus();
+        c.navigate && c.navigate(url);
+        c.postMessage({ type: 'open', url });
+        return;
+      }
+    }
+    return clients.openWindow(url);
+  })());
 });
